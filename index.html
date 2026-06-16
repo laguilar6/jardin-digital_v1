@@ -9,31 +9,63 @@
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body {
     font-family: 'Georgia', 'Times New Roman', serif;
-    background: #f5f3ee;
-    color: #2c3e2f;
+    background: #ffffff;
+    color: #000000;
     height: 100vh;
     overflow: hidden;
     transition: background 0.4s, color 0.4s;
   }
+  
+  /* ===== ESTADO OSCURO (segunda posición) ===== */
   body.dark {
-    background: #1a1f1a;
-    color: #d4dccf;
+    background: #1a1a1a;
+    color: #e0e0e0;
   }
   body.dark .barra-superior, body.dark .barra-lateral {
-    background: #252b25;
-    border-color: #3f4a3f;
+    background: #222222;
+    border-color: #333333;
   }
-  body.dark .card, body.dark .modal-content, body.dark .obra-card {
-    background: #2a302a;
-    color: #d4dccf;
+  body.dark .card, body.dark .modal-content, body.dark .obra-card, body.dark .repo-item {
+    background: #262626;
+    color: #e0e0e0;
+    border-color: #333333;
   }
-  body.dark .btn, body.dark .btn-recursos {
-    background: #3f5a3f;
-    color: #eef5ee;
+  body.dark .btn {
+    background: #444444;
+    color: #ffffff;
   }
   body.dark .btn:hover {
-    background: #5a7a5a;
+    background: #555555;
   }
+  body.dark .btn-secundario {
+    background: transparent;
+    color: #cccccc;
+    border-color: #555555;
+  }
+  body.dark .btn-secundario:hover {
+    background: #333333;
+  }
+  body.dark .instrucciones {
+    background: #222222;
+    border-left-color: #666666;
+  }
+  body.dark .frase-aleatoria {
+    color: #aaaaaa;
+  }
+  body.dark .barra-lateral .btn-lateral {
+    color: #aaaaaa;
+    border-bottom-color: #333333;
+  }
+  body.dark .barra-lateral .btn-lateral:hover {
+    background: #2a2a2a;
+  }
+  body.dark .barra-lateral .btn-lateral.active {
+    background: #333333;
+    color: #ffffff;
+  }
+  
+  /* ===== ESTADO ALEATORIO (tercera posición) ===== */
+  /* Se aplica dinámicamente desde JS */
   
   /* ===== LAYOUT PRINCIPAL ===== */
   .app {
@@ -48,58 +80,78 @@
     align-items: center;
     justify-content: space-between;
     padding: 0 1.2rem;
-    height: 60px;
-    background: #eef3ea;
-    border-bottom: 1px solid #ced9c8;
+    height: 56px;
+    background: #ffffff;
+    border-bottom: 1px solid #e0e0e0;
     flex-shrink: 0;
     transition: background 0.3s, border-color 0.3s;
   }
   .barra-superior .iconos {
     display: flex;
     align-items: center;
-    gap: 1.2rem;
+    gap: 0.8rem;
   }
   .barra-superior .icono-btn {
     background: none;
     border: none;
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     cursor: pointer;
-    padding: 0.2rem 0.4rem;
-    border-radius: 6px;
+    padding: 0.3rem 0.4rem;
+    border-radius: 4px;
     transition: background 0.2s;
     color: inherit;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
   }
   .barra-superior .icono-btn:hover {
-    background: rgba(0,0,0,0.08);
+    background: rgba(0,0,0,0.05);
   }
   .barra-superior .icono-btn.active {
-    background: #d0dfcc;
+    background: #e8e8e8;
+  }
+  body.dark .barra-superior .icono-btn:hover {
+    background: rgba(255,255,255,0.08);
   }
   body.dark .barra-superior .icono-btn.active {
-    background: #3f5a3f;
+    background: #333333;
   }
+  
+  /* ===== ICONOS SVG (estilo Themify) ===== */
+  .icon-svg {
+    width: 20px;
+    height: 20px;
+    fill: currentColor;
+    stroke: currentColor;
+    stroke-width: 0.5;
+  }
+  
   .frase-aleatoria {
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     font-style: italic;
-    color: #4f6b4a;
+    color: #666666;
     flex: 1;
     text-align: center;
     padding: 0 1rem;
   }
-  body.dark .frase-aleatoria { color: #aac2a5; }
+  body.dark .frase-aleatoria {
+    color: #999999;
+  }
   
-  /* ===== CONTENEDOR PRINCIPAL (barra lateral + cuerpo) ===== */
+  /* ===== CONTENEDOR PRINCIPAL ===== */
   .contenedor-principal {
     display: flex;
     flex: 1;
-    height: calc(100vh - 60px);
+    height: calc(100vh - 56px);
   }
   
   /* ===== BARRA LATERAL ===== */
   .barra-lateral {
-    width: 120px;
-    background: #eef3ea;
-    border-right: 1px solid #ced9c8;
+    width: 100px;
+    background: #ffffff;
+    border-right: 1px solid #e0e0e0;
     display: flex;
     flex-direction: column;
     flex-shrink: 0;
@@ -109,53 +161,46 @@
     flex: 1;
     border: none;
     background: transparent;
-    font-size: 1.1rem;
+    font-size: 0.8rem;
     font-weight: 400;
-    color: #3f5a3a;
+    color: #444444;
     cursor: pointer;
     transition: background 0.2s, color 0.2s;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 6px;
-    border-bottom: 1px solid #ced9c8;
+    gap: 4px;
+    border-bottom: 1px solid #e0e0e0;
     font-family: inherit;
+    text-transform: lowercase;
+    letter-spacing: 0.05em;
   }
   .barra-lateral .btn-lateral:hover {
-    background: #d4e0cf;
+    background: #f5f5f5;
   }
   .barra-lateral .btn-lateral.active {
-    background: #d0dfcc;
+    background: #e8e8e8;
     font-weight: 600;
   }
-  body.dark .barra-lateral .btn-lateral {
-    color: #bdd5b8;
-    border-bottom-color: #3f4a3f;
-  }
-  body.dark .barra-lateral .btn-lateral:hover {
-    background: #364036;
-  }
-  body.dark .barra-lateral .btn-lateral.active {
-    background: #3f5a3f;
-  }
-  .barra-lateral .btn-lateral span {
-    font-size: 2rem;
+  .barra-lateral .btn-lateral .icon-wrap {
+    font-size: 1.6rem;
+    line-height: 1;
   }
   
   /* ===== CUERPO CENTRAL ===== */
   .cuerpo {
     flex: 1;
-    padding: 1.5rem 2rem;
+    padding: 1.5rem 2.5rem;
     overflow-y: auto;
     position: relative;
   }
   
   /* ===== TÍTULO EDITABLE ===== */
   .titulo-editable {
-    font-size: 2.8rem;
+    font-size: 2.4rem;
     font-weight: 300;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.04em;
     margin-bottom: 0.2rem;
     border: none;
     background: transparent;
@@ -163,20 +208,16 @@
     width: 100%;
     font-family: inherit;
     outline: none;
-    border-bottom: 1px dashed #b4cdb0;
+    border-bottom: 1px dashed #cccccc;
     padding-bottom: 0.2rem;
   }
-  body.dark .titulo-editable {
-    border-bottom-color: #5a7a5a;
-  }
   .subtitulo {
-    font-size: 0.95rem;
-    color: #5f7a5a;
-    margin-bottom: 1.8rem;
+    font-size: 0.85rem;
+    color: #888888;
+    margin-bottom: 1.5rem;
   }
-  body.dark .subtitulo { color: #9cb897; }
   
-  /* ===== CONTENIDO DINÁMICO (según vista) ===== */
+  /* ===== VISTAS ===== */
   .vista {
     display: none;
   }
@@ -184,186 +225,195 @@
     display: block;
   }
   
-  /* ===== VISTA: OBRA (imagen/texto/video/audio) ===== */
+  /* ===== VISTA: OBRA ===== */
   .obra-container {
     max-width: 800px;
     margin: 0 auto;
   }
   .obra-card {
-    background: white;
-    border-radius: 24px;
-    padding: 1.8rem;
-    box-shadow: 0 8px 30px rgba(0,20,0,0.06);
-    margin: 1rem 0;
-    border: 1px solid #d0dfcc;
+    background: #ffffff;
+    border-radius: 0;
+    padding: 1.5rem;
+    border: 1px solid #e0e0e0;
+    margin: 0.5rem 0;
     transition: background 0.3s, border-color 0.3s;
   }
   .obra-card .metadata {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 0.5rem 1.5rem;
-    margin-bottom: 1.2rem;
-    font-size: 0.95rem;
+    gap: 0.3rem 1.5rem;
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
   }
   .obra-card .metadata .label {
     font-weight: 600;
-    opacity: 0.7;
+    opacity: 0.5;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
   }
   .obra-card .preview {
     display: flex;
     justify-content: center;
     align-items: center;
-    background: #f0f4ee;
-    border-radius: 16px;
-    min-height: 200px;
+    background: #f8f8f8;
+    min-height: 180px;
     padding: 1rem;
-    margin: 0.5rem 0 1.2rem;
+    margin: 0.5rem 0 1rem;
+    border: 1px solid #eeeeee;
   }
   body.dark .obra-card .preview {
-    background: #1f261f;
+    background: #1f1f1f;
+    border-color: #333333;
   }
   .obra-card .preview img {
     max-width: 100%;
-    max-height: 350px;
-    border-radius: 12px;
+    max-height: 320px;
   }
   .obra-card .preview video {
     max-width: 100%;
-    max-height: 350px;
-    border-radius: 12px;
+    max-height: 320px;
   }
   .obra-card .preview audio {
     width: 100%;
   }
   .obra-card .preview .texto-placeholder {
-    font-size: 1.2rem;
-    color: #5f7a5a;
+    font-size: 1rem;
+    color: #888888;
     padding: 2rem;
     text-align: center;
   }
   .acciones {
     display: flex;
-    gap: 1rem;
+    gap: 0.8rem;
     flex-wrap: wrap;
     align-items: center;
     margin-top: 1rem;
   }
   .btn {
-    background: #5b7f56;
-    color: white;
+    background: #000000;
+    color: #ffffff;
     border: none;
-    padding: 0.6rem 1.4rem;
-    border-radius: 50px;
-    font-size: 0.9rem;
+    padding: 0.5rem 1.2rem;
+    font-size: 0.8rem;
     cursor: pointer;
     transition: background 0.2s, transform 0.1s;
     font-family: inherit;
     text-decoration: none;
     display: inline-block;
+    border-radius: 0;
+    letter-spacing: 0.03em;
   }
   .btn:hover {
-    background: #43633e;
-    transform: translateY(-2px);
+    background: #333333;
+    transform: translateY(-1px);
   }
   .btn-secundario {
     background: transparent;
-    color: #3f5a3a;
-    border: 1px solid #5b7f56;
+    color: #000000;
+    border: 1px solid #000000;
   }
   .btn-secundario:hover {
-    background: #e8f0e4;
+    background: #f0f0f0;
   }
   body.dark .btn-secundario {
-    color: #bdd5b8;
-    border-color: #7f9f7a;
+    color: #e0e0e0;
+    border-color: #777777;
   }
   body.dark .btn-secundario:hover {
-    background: #2a3a2a;
+    background: #333333;
   }
   .instrucciones {
-    margin-top: 1.5rem;
-    padding: 1.2rem;
-    background: #f4f8f2;
-    border-radius: 16px;
-    font-size: 0.95rem;
-    border-left: 4px solid #7f9f7a;
+    margin-top: 1.2rem;
+    padding: 1rem;
+    background: #f8f8f8;
+    font-size: 0.85rem;
+    border-left: 3px solid #000000;
   }
   body.dark .instrucciones {
-    background: #252b25;
-    border-left-color: #7f9f7a;
+    background: #1f1f1f;
+    border-left-color: #777777;
   }
   .instrucciones a {
-    color: #3f6b3a;
+    color: #000000;
     text-decoration: underline;
+  }
+  body.dark .instrucciones a {
+    color: #aaaaaa;
   }
   
   /* ===== VISTA: HOME ===== */
   .home-content {
-    max-width: 700px;
+    max-width: 650px;
     margin: 0 auto;
-    padding: 1rem 0;
+    padding: 0.5rem 0;
   }
   .home-content h2 {
     font-weight: 300;
-    font-size: 2rem;
-    margin-bottom: 1rem;
+    font-size: 2.2rem;
+    margin-bottom: 1.2rem;
+    letter-spacing: 0.02em;
   }
   .home-content .frase-destacada {
     font-style: italic;
-    font-size: 1.3rem;
-    border-left: 4px solid #7f9f7a;
+    font-size: 1.2rem;
+    border-left: 3px solid #000000;
     padding-left: 1.5rem;
     margin: 1.5rem 0;
-    color: #3f5a3a;
+    color: #444444;
   }
   body.dark .home-content .frase-destacada {
-    color: #bdd5b8;
+    color: #bbbbbb;
+    border-left-color: #777777;
+  }
+  .home-content p {
+    margin-bottom: 1rem;
+    line-height: 1.7;
   }
   
   /* ===== VISTA: REPOSITORIO ===== */
   .repo-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 1.5rem;
-    margin: 1.5rem 0;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 1.2rem;
+    margin: 1.2rem 0;
   }
   .repo-item {
-    background: white;
-    border-radius: 20px;
-    padding: 1.2rem;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+    background: #ffffff;
+    border-radius: 0;
+    padding: 1rem;
     cursor: pointer;
     transition: transform 0.2s, box-shadow 0.2s;
-    border: 1px solid #d0dfcc;
+    border: 1px solid #e0e0e0;
   }
   .repo-item:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 12px 24px rgba(0,20,0,0.08);
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.06);
   }
   .repo-item img {
     width: 100%;
     aspect-ratio: 1/1;
     object-fit: cover;
-    border-radius: 12px;
-    margin-bottom: 0.6rem;
+    margin-bottom: 0.5rem;
+    border: 1px solid #f0f0f0;
   }
   .repo-item .repo-titulo {
     font-weight: 600;
-    font-size: 0.95rem;
+    font-size: 0.85rem;
   }
   .repo-item .repo-autor {
-    font-size: 0.8rem;
-    opacity: 0.7;
+    font-size: 0.7rem;
+    opacity: 0.6;
   }
   .btn-aleatorio {
-    margin: 1rem 0;
+    margin: 0.5rem 0 1rem;
   }
   
-  /* ===== MODAL (Recursos, Términos, etc) ===== */
+  /* ===== MODAL PRINCIPAL ===== */
   .modal-overlay {
     position: fixed;
     top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(0,0,0,0.5);
+    background: rgba(0,0,0,0.4);
     backdrop-filter: blur(4px);
     display: none;
     align-items: center;
@@ -374,30 +424,30 @@
     display: flex;
   }
   .modal-content {
-    background: #f5f3ee;
-    border-radius: 30px;
+    background: #ffffff;
+    border-radius: 0;
     padding: 2rem;
-    max-width: 600px;
+    max-width: 550px;
     width: 90%;
     max-height: 80vh;
     overflow-y: auto;
     position: relative;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.2);
-  }
-  body.dark .modal-content {
-    background: #1f241f;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+    border: 1px solid #e0e0e0;
   }
   .modal-content .cerrar-modal {
     position: absolute;
-    top: 0.8rem;
-    right: 1.2rem;
-    font-size: 1.8rem;
+    top: 0.6rem;
+    right: 1rem;
+    font-size: 1.6rem;
     cursor: pointer;
     background: none;
     border: none;
     color: inherit;
   }
   .modal-content h2 {
+    font-weight: 300;
+    font-size: 1.6rem;
     margin-bottom: 1rem;
   }
   .modal-content ul {
@@ -406,40 +456,33 @@
   }
   .modal-content ul li {
     padding: 0.4rem 0;
-    border-bottom: 1px solid #ced9c8;
-  }
-  body.dark .modal-content ul li {
-    border-bottom-color: #3f4a3f;
+    border-bottom: 1px solid #e0e0e0;
   }
   .modal-content ul li a {
-    color: #3f6b3a;
+    color: #000000;
     text-decoration: none;
   }
   .modal-content ul li a:hover {
     text-decoration: underline;
   }
-  body.dark .modal-content ul li a {
-    color: #9cb897;
+  .modal-content ul li:last-child {
+    border-bottom: none;
   }
   
-  /* ===== MODAL LATERAL (para obra del repositorio) ===== */
+  /* ===== MODAL LATERAL ===== */
   .modal-lateral {
     position: fixed;
-    top: 60px;
-    right: -500px;
-    width: 480px;
-    height: calc(100vh - 60px);
-    background: #f5f3ee;
-    border-left: 1px solid #ced9c8;
+    top: 56px;
+    right: -480px;
+    width: 460px;
+    height: calc(100vh - 56px);
+    background: #ffffff;
+    border-left: 1px solid #e0e0e0;
     transition: right 0.3s ease;
     z-index: 500;
     padding: 2rem;
     overflow-y: auto;
-    box-shadow: -8px 0 30px rgba(0,0,0,0.08);
-  }
-  body.dark .modal-lateral {
-    background: #1f241f;
-    border-left-color: #3f4a3f;
+    box-shadow: -4px 0 20px rgba(0,0,0,0.06);
   }
   .modal-lateral.open {
     right: 0;
@@ -447,15 +490,20 @@
   .modal-lateral .cerrar-lateral {
     background: none;
     border: none;
-    font-size: 1.8rem;
+    font-size: 1.6rem;
     cursor: pointer;
     color: inherit;
     float: right;
   }
   .modal-lateral img {
     max-width: 100%;
-    border-radius: 16px;
     margin: 1rem 0;
+    border: 1px solid #f0f0f0;
+  }
+  .modal-lateral h3 {
+    font-weight: 400;
+    font-size: 1.4rem;
+    margin-bottom: 0.5rem;
   }
   
   /* ===== RESPONSIVE ===== */
@@ -463,29 +511,29 @@
     .barra-superior {
       flex-wrap: wrap;
       height: auto;
-      padding: 0.5rem 1rem;
-      gap: 0.5rem;
+      padding: 0.4rem 0.8rem;
+      gap: 0.3rem;
     }
     .frase-aleatoria {
-      font-size: 0.7rem;
+      font-size: 0.65rem;
       order: 3;
       width: 100%;
       text-align: center;
     }
     .barra-lateral {
-      width: 80px;
+      width: 70px;
     }
-    .barra-lateral .btn-lateral span {
-      font-size: 1.5rem;
+    .barra-lateral .btn-lateral .icon-wrap {
+      font-size: 1.2rem;
     }
     .barra-lateral .btn-lateral {
-      font-size: 0.7rem;
+      font-size: 0.6rem;
     }
     .cuerpo {
       padding: 1rem;
     }
     .titulo-editable {
-      font-size: 1.8rem;
+      font-size: 1.6rem;
     }
     .obra-card .metadata {
       grid-template-columns: 1fr;
@@ -493,6 +541,9 @@
     .modal-lateral {
       width: 100%;
       right: -100%;
+    }
+    .repo-grid {
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
     }
   }
 </style>
@@ -503,12 +554,22 @@
   <!-- ===== BARRA SUPERIOR ===== -->
   <header class="barra-superior">
     <div class="iconos">
-      <button class="icono-btn" id="btnHome" title="Inicio">🏠</button>
-      <button class="icono-btn" id="btnRepo" title="Repositorio">📦</button>
-      <button class="icono-btn" id="btnRecursos" title="Recursos">🛠️</button>
-      <button class="icono-btn" id="btnTheme" title="Modo oscuro/claro">☀️</button>
-      <button class="icono-btn" id="btnTerminos" title="Términos">📄</button>
-      <button class="icono-btn" id="btnCerrar" title="Cerrar ventana">✕</button>
+      <button class="icono-btn" id="btnHome" title="Inicio">
+        <svg class="icon-svg" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+      </button>
+      <button class="icono-btn" id="btnRepo" title="Repositorio">
+        <svg class="icon-svg" viewBox="0 0 24 24"><path d="M20 6h-8l-2-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2z"/></svg>
+      </button>
+      <button class="icono-btn" id="btnRecursos" title="Recursos">
+        <svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z"/></svg>
+      </button>
+      <button class="icono-btn" id="btnTheme" title="Modo">☀️</button>
+      <button class="icono-btn" id="btnTerminos" title="Términos">
+        <svg class="icon-svg" viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm2 18H6V4h7v5h5v11z"/></svg>
+      </button>
+      <button class="icono-btn" id="btnCerrar" title="Cerrar">
+        <svg class="icon-svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+      </button>
     </div>
     <div class="frase-aleatoria" id="fraseAleatoria">"El acto creativo no es sobre ser especial, sino sobre estar abierto a lo que ya existe."</div>
   </header>
@@ -518,22 +579,21 @@
     <!-- Barra lateral -->
     <nav class="barra-lateral" id="barraLateral">
       <button class="btn-lateral active" data-tipo="imagen">
-        <span>🖼️</span> imagen
+        <span class="icon-wrap">🖼️</span> imagen
       </button>
       <button class="btn-lateral" data-tipo="texto">
-        <span>📖</span> texto
+        <span class="icon-wrap">📖</span> texto
       </button>
       <button class="btn-lateral" data-tipo="video">
-        <span>🎬</span> video
+        <span class="icon-wrap">🎬</span> video
       </button>
       <button class="btn-lateral" data-tipo="audio">
-        <span>🎵</span> audio
+        <span class="icon-wrap">🎵</span> audio
       </button>
     </nav>
 
     <!-- Cuerpo central -->
     <main class="cuerpo" id="cuerpo">
-      <!-- Título editable (visible en todas las vistas excepto Home) -->
       <input type="text" class="titulo-editable" id="tituloEditable" value="[e][s][t][a][r]_[c][o][m][ú][n]" placeholder="Título de tu obra...">
       <div class="subtitulo" id="subtitulo">← Seleccioná un formato para obtener una pieza aleatoria de Archive.org y transformarla.</div>
 
@@ -545,14 +605,14 @@
           <p>Aquí podés tomar una obra de internet — una imagen, un texto, un video o un sonido — y transformarla en algo nuevo. No importa si sos artista o no; lo que importa es la intención de hacer crecer.</p>
           <div class="frase-destacada">
             "El acto creativo no es sobre ser especial, sino sobre estar abierto a lo que ya existe."<br>
-            <span style="font-size:0.9rem;">— Rick Rubin, <em>The Creative Act: A Way of Being</em></span>
+            <span style="font-size:0.85rem;">— Rick Rubin, <em>The Creative Act: A Way of Being</em></span>
           </div>
           <p>Espero te puedas sumar a esta actividad en este jardín digital. 🌱</p>
-          <p style="font-size:0.9rem; opacity:0.7; margin-top:1.5rem;">Todo es anti‑copyright, colaborativo y gratuito. No hay dueños, solo jardineros.</p>
+          <p style="font-size:0.8rem; opacity:0.5; margin-top:1.5rem;">Todo es anti‑copyright, colaborativo y gratuito. No hay dueños, solo jardineros.</p>
         </div>
       </div>
 
-      <!-- ===== VISTA OBRA (se reemplaza según el tipo seleccionado) ===== -->
+      <!-- ===== VISTA OBRA ===== -->
       <div class="vista" id="vistaObra">
         <div class="obra-container">
           <div class="obra-card" id="obraCard">
@@ -567,11 +627,11 @@
             </div>
             <div class="acciones">
               <button class="btn" id="btnVerOriginal">🔗 Ver original</button>
-              <button class="btn btn-secundario" id="btnDescargarTxt">⬇️ Descargar obra</button>
-              <button class="btn btn-secundario" id="btnNuevaObra">Generar otra obra</button>
+              <button class="btn btn-secundario" id="btnDescargarTxt">⬇️ Descargar semilla (.txt)</button>
+              <button class="btn btn-secundario" id="btnNuevaObra">🎲 Otra obra</button>
             </div>
             <div class="instrucciones" id="instrucciones">
-              <strong>INSTRUCCIONES:</strong> Descargá esta pieza, intervenila con tus herramientas favoritas (digitales o artesanales) y luego <a href="#" id="linkCompartir">compartí el resultado</a> en nuestro Jardín Digital.
+              <strong>INSTRUCCIONES:</strong> Descargá esta pieza, intervénala con tus herramientas favoritas (digitales o artesanales) y luego <a href="#" id="linkCompartir">compartí el resultado</a> en nuestro Jardín Digital.
             </div>
           </div>
         </div>
@@ -579,8 +639,8 @@
 
       <!-- ===== VISTA REPOSITORIO ===== -->
       <div class="vista" id="vistaRepo">
-        <h2 style="font-weight:300; font-size:2rem;">📦 Repositorio de obras digitales</h2>
-        <p style="margin-bottom:1rem;">Obras creadas por participantes del jardín. Hacé clic en una para verla en detalle.</p>
+        <h2 style="font-weight:300; font-size:1.8rem;">📦 Repositorio de obras digitales</h2>
+        <p style="margin-bottom:0.8rem; font-size:0.9rem; opacity:0.7;">Obras creadas por participantes del jardín. Hacé clic en una para verla en detalle.</p>
         <button class="btn btn-secundario btn-aleatorio" id="btnRepoAleatorio">🎲 Aleatorio</button>
         <div class="repo-grid" id="repoGrid">
           <!-- Las obras se insertan desde JS -->
@@ -590,7 +650,7 @@
   </div>
 </div>
 
-<!-- ===== MODAL (Recursos / Términos) ===== -->
+<!-- ===== MODAL PRINCIPAL ===== -->
 <div class="modal-overlay" id="modalOverlay">
   <div class="modal-content" id="modalContent">
     <button class="cerrar-modal" id="cerrarModal">✕</button>
@@ -598,7 +658,7 @@
   </div>
 </div>
 
-<!-- ===== MODAL LATERAL (para detalle de obra en repositorio) ===== -->
+<!-- ===== MODAL LATERAL ===== -->
 <div class="modal-lateral" id="modalLateral">
   <button class="cerrar-lateral" id="cerrarLateral">✕</button>
   <div id="lateralBody"></div>
@@ -661,9 +721,9 @@
 
     // Variables de estado
     let currentTipo = 'imagen';
-    let currentObra = null; // datos de la obra actual
+    let currentObra = null;
     let currentRepoIndex = null;
-    let temaIndex = 0; // 0=claro, 1=oscuro, 2=random
+    let temaIndex = 0; // 0=claro, 1=oscuro, 2=aleatorio
 
     // ---------- DOM REFS ----------
     const $ = id => document.getElementById(id);
@@ -710,7 +770,6 @@
       }
     }
 
-    // Cambiar frase aleatoria
     function cambiarFrase() {
       const idx = Math.floor(Math.random() * FRASES.length);
       fraseAleatoria.textContent = FRASES[idx];
@@ -718,7 +777,6 @@
     setInterval(cambiarFrase, 12000);
     cambiarFrase();
 
-    // Obtener obra de Archive.org
     async function obtenerObraArchive(tipo) {
       const mediatype = TIPO_MEDIATYPE[tipo] || 'images';
       try {
@@ -737,7 +795,6 @@
           url: `https://archive.org/details/${doc.identifier}`
         };
       } catch (e) {
-        // Fallback: datos simulados si falla la API
         return {
           identifier: 'fallback_' + Date.now(),
           title: 'Obra de prueba (API no disponible)',
@@ -750,7 +807,6 @@
       }
     }
 
-    // Mostrar obra en la card
     function mostrarObra(obra, tipo) {
       currentObra = obra;
       obraTitulo.textContent = obra.title;
@@ -770,7 +826,7 @@
         video.src = `https://archive.org/download/${obra.identifier}/${obra.identifier}.mp4`;
         video.controls = true;
         video.style.maxWidth = '100%';
-        video.style.maxHeight = '350px';
+        video.style.maxHeight = '320px';
         previewObra.appendChild(video);
       } else if (tipo === 'audio') {
         const audio = document.createElement('audio');
@@ -785,12 +841,10 @@
         previewObra.appendChild(div);
       }
 
-      // Configurar botón "Ver original"
       btnVerOriginal.onclick = function() {
         window.open(obra.url, '_blank');
       };
 
-      // Configurar botón "Descargar semilla"
       btnDescargarTxt.onclick = function() {
         const contenido = `Título: ${obra.title}\nCreado por: ${obra.source}\nTópicos: ${obra.topic}\nLink original: ${obra.url}\n\n--- INSTRUCCIONES ---\nDescargá esta pieza, intervénala con tus herramientas favoritas (digitales o artesanales) y luego compartí el resultado en nuestro Jardín Digital.\nPara compartir tu nueva obra, entrá a la sección "Repositorio" y subí tu creación.\n\n🌱 Jardín Digital — anti‑copyright, colaborativo, abierto.`;
         const blob = new Blob([contenido], { type: 'text/plain' });
@@ -801,7 +855,6 @@
         URL.revokeObjectURL(link.href);
       };
 
-      // Link para compartir (simulado)
       linkCompartir.href = '#';
       linkCompartir.onclick = function(e) {
         e.preventDefault();
@@ -809,7 +862,6 @@
       };
     }
 
-    // Cargar obra aleatoria
     async function cargarObraAleatoria(tipo) {
       previewObra.innerHTML = '<span style="color:#888;">🔍 Buscando en Archive.org...</span>';
       const obra = await obtenerObraArchive(tipo);
@@ -846,7 +898,7 @@
         <p><strong>Descripción:</strong> ${obra.desc || 'Sin descripción'}</p>
         <img src="${obra.imagen}" alt="${obra.titulo}">
         <p><strong>Obra original:</strong> <a href="${obra.original}" target="_blank">${obra.original}</a></p>
-        <p style="font-size:0.9rem; margin-top:1rem;"><em>Esta obra puede ser reutilizada como semilla.</em></p>
+        <p style="font-size:0.8rem; margin-top:0.8rem; opacity:0.6;"><em>Esta obra puede ser reutilizada como semilla.</em></p>
       `;
       modalLateral.classList.add('open');
     }
@@ -859,6 +911,60 @@
 
     function cerrarModal() {
       modalOverlay.classList.remove('open');
+    }
+
+    // ---------- CAMBIO DE TEMA ----------
+    function aplicarTema(index) {
+      const body = document.body;
+      const btnTheme = $('btnTheme');
+      
+      // Resetear clases y estilos inline
+      body.classList.remove('dark');
+      body.style.background = '';
+      body.style.color = '';
+
+      if (index === 0) {
+        // Claro (blanco y negro)
+        btnTheme.textContent = '☀️';
+        body.style.background = '#ffffff';
+        body.style.color = '#000000';
+      } else if (index === 1) {
+        // Oscuro
+        btnTheme.textContent = '🌙';
+        body.classList.add('dark');
+      } else if (index === 2) {
+        // Aleatorio (con verde como protagonista)
+        btnTheme.textContent = '🎨';
+        const h = Math.floor(Math.random() * 360);
+        // Forzamos que el verde esté presente (entre 80 y 160 grados)
+        const hueVerde = 80 + Math.floor(Math.random() * 80);
+        // Fondo oscuro con tono verde
+        const bgL = 15 + Math.floor(Math.random() * 20);
+        const bgS = 30 + Math.floor(Math.random() * 40);
+        body.style.background = `hsl(${hueVerde}, ${bgS}%, ${bgL}%)`;
+        // Texto claro
+        body.style.color = `hsl(${hueVerde}, ${bgS-20}%, ${bgL+50}%)`;
+        // Elementos de fondo claros con borde sutil
+        document.querySelectorAll('.barra-superior, .barra-lateral, .obra-card, .repo-item, .modal-content').forEach(el => {
+          el.style.background = `hsl(${hueVerde}, ${bgS-10}%, ${bgL+8}%)`;
+          el.style.borderColor = `hsl(${hueVerde}, ${bgS-10}%, ${bgL+20}%)`;
+        });
+        // Botones
+        document.querySelectorAll('.btn').forEach(el => {
+          el.style.background = `hsl(${hueVerde}, ${bgS}%, ${bgL+30}%)`;
+          el.style.color = `hsl(${hueVerde}, ${bgS-10}%, ${bgL+70}%)`;
+        });
+        document.querySelectorAll('.btn-secundario').forEach(el => {
+          el.style.background = 'transparent';
+          el.style.color = `hsl(${hueVerde}, ${bgS-10}%, ${bgL+70}%)`;
+          el.style.borderColor = `hsl(${hueVerde}, ${bgS-10}%, ${bgL+40}%)`;
+        });
+        // Instrucciones
+        document.querySelectorAll('.instrucciones').forEach(el => {
+          el.style.background = `hsl(${hueVerde}, ${bgS-10}%, ${bgL+5}%)`;
+          el.style.borderLeftColor = `hsl(${hueVerde}, ${bgS}%, ${bgL+30}%)`;
+        });
+      }
     }
 
     // ---------- EVENTOS ----------
@@ -874,7 +980,6 @@
       });
     });
 
-    // Botones de la barra superior
     $('btnHome').addEventListener('click', function() {
       mostrarVista('home');
       document.querySelectorAll('.btn-lateral').forEach(b => b.classList.remove('active'));
@@ -901,7 +1006,7 @@
         <p><strong>Jardín Digital</strong> es un espacio colaborativo y anti‑copyright.</p>
         <p>Las obras aquí compartidas pueden ser reutilizadas, transformadas y redistribuidas sin fines comerciales, siempre respetando la intención original de la comunidad.</p>
         <p>Para más información, consultá: <a href="https://endefensadelsl.org/ppl_deed_es.html" target="_blank">Licencia de Producción de Pares</a></p>
-        <p style="font-size:0.9rem; margin-top:1rem;">Al participar, aceptás que tus obras sean parte del jardín y puedan ser usadas como semillas por otras personas.</p>
+        <p style="font-size:0.8rem; margin-top:0.8rem; opacity:0.7;">Al participar, aceptás que tus obras sean parte del jardín y puedan ser usadas como semillas por otras personas.</p>
       `;
       abrirModal(html);
     });
@@ -910,49 +1015,26 @@
       window.close();
     });
 
-    // Tema: claro → oscuro → random → claro
+    // Botón de tema (cíclico)
     $('btnTheme').addEventListener('click', function() {
       temaIndex = (temaIndex + 1) % 3;
-      const body = document.body;
-      body.classList.remove('dark');
-      if (temaIndex === 1) {
-        body.classList.add('dark');
-        this.textContent = '🌙';
-      } else if (temaIndex === 2) {
-        // Paleta aleatoria
-        const h = Math.floor(Math.random() * 360);
-        const s = 30 + Math.floor(Math.random() * 40);
-        const l = 20 + Math.floor(Math.random() * 30);
-        body.style.background = `hsl(${h}, ${s}%, ${l}%)`;
-        body.style.color = `hsl(${h}, ${s-10}%, ${l+40}%)`;
-        this.textContent = '🎨';
-        // No aplicar dark mode
-        body.classList.remove('dark');
-      } else {
-        body.style.background = '#f5f3ee';
-        body.style.color = '#2c3e2f';
-        this.textContent = '☀️';
-      }
+      aplicarTema(temaIndex);
     });
 
-    // Botón "Nueva obra"
     btnNuevaObra.addEventListener('click', function() {
       cargarObraAleatoria(currentTipo);
     });
 
-    // Botón "Aleatorio" en repositorio
     $('btnRepoAleatorio').addEventListener('click', function() {
       const idx = Math.floor(Math.random() * OBRAS_REPO.length);
       abrirModalLateral(idx);
     });
 
-    // Cerrar modal principal
     $('cerrarModal').addEventListener('click', cerrarModal);
     modalOverlay.addEventListener('click', function(e) {
       if (e.target === this) cerrarModal();
     });
 
-    // Cerrar modal lateral
     $('cerrarLateral').addEventListener('click', function() {
       modalLateral.classList.remove('open');
     });
@@ -960,14 +1042,10 @@
     // ---------- INICIALIZACIÓN ----------
     mostrarVista('home');
     renderizarRepo();
+    aplicarTema(0); // Arranca en modo claro
 
     // Cargar primera obra al hacer clic en imagen
     document.querySelector('.btn-lateral[data-tipo="imagen"]').click();
-
-    // Si el título editable cambia, actualizar
-    tituloEditable.addEventListener('input', function() {
-      // No hace falta hacer nada, el usuario edita el título libremente
-    });
 
     console.log('🌱 Jardín Digital cargado correctamente.');
   })();
